@@ -1,0 +1,54 @@
+﻿@model IEnumerable<webapplicationCntStaCtyReg_Layout.Models.Register>
+<h2 class="text-primary text-center">USER LIST</h2>
+@Html.ActionLink("New user", "Upsert", "Register", new { @class = "btn btn-info" })
+
+@if (!Model.Any())
+{
+    <h2 class="text-danger">NO DATA FOUND</h2>
+}
+else
+{
+    <table class="table table-bordered table-striped table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Address</th>
+                <th>Email</th>
+                <th>Gender</th>
+                <th>IsSubscribe</th>
+                <th>Country</th>
+                <th>State</th>
+                <th>City</th>
+                <th>Actions</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                using (Html.BeginForm("Delete", "Register", new { id = user.Id }))
+                {
+            <tr>
+                <td>@user.Name</td>
+                <td>@user.Address</td>
+                <td>@user.Email</td>
+                <td>@user.Gender</td>
+                <td>@user.IsSubscribe</td>
+                <td>@user.City.State.Country.Name</td>
+                <td>@user.City.State.Name</td>
+                <td>@user.City.Name</td>
+                <td>
+                    @Html.ActionLink("Edit", "Upsert", new {id = user.Id }, new {@class = "btn btn-success"})
+                    @Html.ActionLink("Details", "Details", new {id = user.Id }, new {@class = "btn btn-info"})
+                    <input type="submit" class="btn btn-danger"  value="delete" onclick="return confirm('want to delete data?')"/>
+                </td>
+
+            </tr>
+                }
+
+            }
+        </tbody>
+
+    </table>
+
+}

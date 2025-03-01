@@ -1,0 +1,42 @@
+﻿@model webapplicationCntStaCtyReg_Layout.Models.Register
+<h2 class="text-primary text-center">USER DETAILS</h2>
+<table class="table table-bordered table-hover table-responsive table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Email</th>
+            <th>Gender</th>
+            <th>IsSubscribe</th>
+            <th>Country</th>
+            <th>State</th>
+            <th>City</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>@Model.Name</td>
+            <td>@Model.Address</td>
+            <td>@Model.Email</td>
+            <td>@Model.Gender</td>
+            <td>
+                @if (Model.IsSubscribe)
+                {
+                <input type="checkbox" checked disabled/>
+
+                }
+
+            else
+            {
+                <input type="checkbox" disabled/>
+            }
+            </td>
+            <td>@Model.City.State.Country.Name</td>
+            <td>@Model.City.State.Name</td>
+            <td>@Model.City.Name</td>
+        </tr>
+    </tbody>
+
+</table>
+@Html.ActionLink("Edit", "Upsert", new {id = Model.Id})<br/>
+@Html.ActionLink("Back to List", "Index")

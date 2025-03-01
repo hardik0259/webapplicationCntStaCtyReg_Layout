@@ -1,0 +1,85 @@
+﻿@model webapplicationCntStaCtyReg_Layout.Models.Register
+@{
+    ViewBag.Title = "Upsert";
+    var title = Model.Id != 0 ? "Edit User" : "New User";
+    var saveUpdate = Model.Id != 0 ? "Update" : "Save";
+}
+<h2 class="text-primary text-center">@title</h2>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken();
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    if (Model.Id != 0)
+    {
+        @Html.HiddenFor(m => m.Id)
+    }
+<div class="row">
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name)
+        @Html.TextBoxFor(m => m.Name, new { @Class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Address)
+        @Html.TextBoxFor(m => m.Address, new { @Class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Email)
+        @Html.TextBoxFor(m => m.Email, new { @Class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.PhoneNumber)
+        @Html.TextBoxFor(m => m.PhoneNumber, new { @Class = "form-control" })
+        @Html.ValidationMessageFor(m => m.PhoneNumber, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Gender) <br />
+        @*@Html.TextBoxFor(m => m.Gender, new { @Class = "form-control" })*@
+
+        @Html.RadioButtonFor(m => m.Gender, "Male") Male <br />
+        @Html.RadioButtonFor(m => m.Gender, "Female") Female <br />
+        @Html.ValidationMessageFor(m => m.Gender, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.IsSubscribe)
+        @*@Html.TextBoxFor(m => m.IsSubscribe, new { @Class = "form-control" })*@
+        @Html.CheckBoxFor(m => m.IsSubscribe) Is Subscribe?
+        @Html.ValidationMessageFor(m => m.IsSubscribe, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.CountryId)
+        @*@Html.TextBoxFor(m => m.CountryId, new { @Class = "form-control" })*@
+
+        @*@Html.DropDownListFor(m => m.CountryId, new SelectList(ViewBag.countryList, "Id", "Name", "Select Country"), new { @class = "btn btn-danger" }, new { @class = "form-control"})*@
+        @Html.DropDownListFor(m => m.CountryId,new SelectList(ViewBag.countryList, "Id", "Name"),new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.CountryId, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.StateId)
+        @*@Html.TextBoxFor(m => m.StateId, new { @Class = "form-control" })*@
+        @Html.DropDownListFor(m => m.StateId, new SelectList(ViewBag.stateList, "Id", "Name"), new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.StateId, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.CityId)
+        @*@Html.TextBoxFor(m => m.CityId, new { @Class = "form-control" })*@
+        @Html.DropDownListFor(m => m.CityId, new SelectList(ViewBag.cityList, "Id", "Name"), new { @class ="form-control" })
+        @Html.ValidationMessageFor(m => m.CityId, "", new { @class = "text-danger" })
+    </div>
+    <div class="form-group">
+        <button type="submit" class="btn btn-success">
+            @saveUpdate
+        </button>
+
+    </div>
+
+
+</div>
+}
+@section scripts
+{
+   @Scripts.Render("~/bundles/jqueryval")
+<script src="~/Scripts/countrystatecityList.js"></script> 
+}
